@@ -1,0 +1,202 @@
+{
+	"id":9,
+	"name":"kafka",
+	"implClass":"org.apache.ranger.services.kafka.RangerServiceKafka",
+	"label":"Kafka",
+	"description":"Apache Kafka",
+	"resources":[
+		{
+			"itemId":1,
+			"name":"topic",
+			"type":"string",
+			"level":1,
+			"mandatory":true,
+			"lookupSupported":true,
+			"recursiveSupported":false,
+			"excludesSupported":true,
+			"matcher":"org.apache.ranger.plugin.resourcematcher.RangerDefaultResourceMatcher",
+			"matcherOptions":{
+				"wildCard":true,
+				"ignoreCase":true
+			},
+			"validationRegEx":"",
+			"validationMessage":"",
+			"uiHint":"",
+			"label":"Topic",
+			"description":"Topic",
+			"accessTypeRestrictions": ["create", "delete", "configure", "alter_configs", "describe", "describe_configs", "consume", "publish"]
+		},
+		{
+			"itemId":2,
+			"name":"transactionalid",
+			"type":"string",
+			"level":1,
+			"mandatory":true,
+			"excludesSupported":true,
+			"matcher":"org.apache.ranger.plugin.resourcematcher.RangerDefaultResourceMatcher",
+			"matcherOptions":{
+				"wildCard":true,
+				"ignoreCase":true
+			},
+			"label":"Transactional Id",
+			"description":"Transactional Id",
+			"accessTypeRestrictions": ["publish", "describe"]
+		},
+		{
+			"itemId":3,
+			"name":"cluster",
+			"type":"string",
+			"level":1,
+			"mandatory":true,
+			"excludesSupported":true,
+			"matcher":"org.apache.ranger.plugin.resourcematcher.RangerDefaultResourceMatcher",
+			"matcherOptions":{
+				"wildCard":true,
+				"ignoreCase":true
+			},
+			"label":"Cluster",
+			"description":"Cluster",
+			"accessTypeRestrictions": ["create", "configure", "alter_configs", "describe", "describe_configs", "kafka_admin", "idempotent_write"]
+		},
+		{
+			"itemId":4,
+			"name":"delegationtoken",
+			"type":"string",
+			"level":1,
+			"mandatory":true,
+			"excludesSupported":true,
+			"matcher":"org.apache.ranger.plugin.resourcematcher.RangerDefaultResourceMatcher",
+			"matcherOptions":{
+				"wildCard":true,
+				"ignoreCase":true
+			},
+			"label":"Delegation Token",
+			"description":"Delegation Token",
+			"accessTypeRestrictions": ["describe"]
+		}
+	],
+	"accessTypes":[
+		{
+			"itemId":1,
+			"name":"publish",
+			"label":"Publish",
+			"impliedGrants":[
+				"describe"
+			]
+		},
+		{
+			"itemId":2,
+			"name":"consume",
+			"label":"Consume",
+			"impliedGrants":[
+				"describe"
+			]
+		},
+		{
+			"itemId":5,
+			"name":"configure",
+			"label":"Configure",
+			"impliedGrants":[
+				"describe"
+			]
+		},
+		{
+			"itemId":6,
+			"name":"describe",
+			"label":"Describe"
+		},
+		{
+			"itemId":8,
+			"name":"create",
+			"label":"Create"
+		},
+		{
+			"itemId":9,
+			"name":"delete",
+			"label":"Delete",
+			"impliedGrants":[
+				"describe"
+			]
+		},
+		{
+			"itemId":7,
+			"name":"kafka_admin",
+			"label":"Kafka Admin",
+			"impliedGrants":[
+				"publish",
+				"consume",
+				"configure",
+				"describe",
+				"create",
+				"delete"
+			]
+		},
+		{
+			"itemId":10,
+			"name":"idempotent_write",
+			"label":"Idempotent Write"
+		},
+		{
+			"itemId":11,
+			"name":"describe_configs",
+			"label":"Describe Configs"
+		},
+		{
+			"itemId":12,
+			"name":"alter_configs",
+			"label":"Alter Configs",
+			"impliedGrants":[
+				"describe_configs"
+			]
+		}
+	],
+	"configs":[
+		{
+			"itemId":1,
+			"name":"username",
+			"type":"string",
+			"mandatory":true,
+			"label":"Username"
+		},
+		{
+			"itemId":2,
+			"name":"password",
+			"type":"password",
+			"mandatory":true,
+			"label":"Password"
+		},
+		{
+			"itemId":3,
+			"name":"zookeeper.connect",
+			"type":"string",
+			"mandatory":true,
+			"defaultValue":"localhost:2181",
+			"label":"Zookeeper Connect String"
+		},
+		{
+			"itemId":4,
+			"name":"commonNameForCertificate",
+			"type":"string",
+			"mandatory":false,
+			"label":"Ranger Plugin SSL CName"
+		}
+	],
+	"enums":[
+	],
+	"contextEnrichers":[
+	],
+	"policyConditions":[
+		{
+			"itemId":1,
+			"name":"ip-range",
+			"evaluator":"org.apache.ranger.plugin.conditionevaluator.RangerIpMatcher",
+			"evaluatorOptions":{
+			},
+			"validationRegEx":"",
+			"validationMessage":"",
+			"uiHint":"",
+			"label":"IP Address Range",
+			"description":"IP Address Range"
+		}
+	]
+}
