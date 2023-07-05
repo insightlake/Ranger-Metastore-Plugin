@@ -643,7 +643,11 @@ public class RangerDefaultPolicyEvaluator extends RangerAbstractPolicyEvaluator 
 		Integer accessResult = null;
 
 		Map<String, PolicyACLSummary.AccessResult> accesses = aclSummary.getUsersAccessInfo().get(user);
-		LOG.debug(String.format("User:{0} Group:{1} AccessType:{2} AccessInfo:{3}", user, userGroups, accessType, accesses));;
+		LOG.debug(String.format("User:{0} Group:{1} AccessType:{2}", user, userGroups, accessType));
+		if(accesses != null) {
+            LOG.debug("accesses count: " + accesses.size());
+        }
+
 		accessResult = lookupAccess(user, accessType, accesses);
 
 		if (accessResult == null || userGroups.size() > 0) {

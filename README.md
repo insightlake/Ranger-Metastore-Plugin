@@ -14,7 +14,7 @@ The same name needs to be configured during plugin setup.
 Execute next command to build the project
 
 ~~~~
-mvn clean compile package install assembly:assembly
+mvn clean compile package install assembly:assembly -Dmaven.test.skip=true
 ~~~~
 
 As a result this will create a .tar.gz file 
