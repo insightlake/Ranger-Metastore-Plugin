@@ -93,7 +93,7 @@ public class RangerHiveMetastoreAuthorizer extends MetaStorePreEventListener {
         RangerHiveAccessRequest request = null;
         String user;
         Set<String> userGroups = null;
-        List<String> roles;
+//        List<String> roles = null;
 
         try {
             if (ss == null) ss = SessionState.get();
