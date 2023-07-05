@@ -34,7 +34,7 @@ import org.apache.hadoop.security.UserGroupInformation;
 import org.apache.ranger.plugin.policyengine.RangerAccessResult;
 import org.apache.ranger.plugin.util.RangerAccessRequestUtil;
 import org.apache.ranger.plugin.util.RangerRequestedResources;
-import java.util.Set;
+
 import java.io.IOException;
 import java.util.*;
 
