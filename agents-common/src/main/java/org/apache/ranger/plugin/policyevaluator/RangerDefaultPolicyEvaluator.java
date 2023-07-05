@@ -1177,11 +1177,17 @@ public class RangerDefaultPolicyEvaluator extends RangerAbstractPolicyEvaluator 
 
         T ret = null;
 
+		if(LOG.isDebugEnabled()) {
+			LOG.debug(String.format("evaluators-[%s] exceptionEvaluators-[%s]",evaluators,exceptionEvaluators));
+		}
+
         if(CollectionUtils.isNotEmpty(evaluators)) {
             for (T evaluator : evaluators) {
                 if(evaluator.matchUserGroup(user, userGroups, roles) && evaluator.matchAccessType(accessType)) {
                     ret = evaluator;
-
+					//if in
+					LOG.debug(String.format("RangerDefaultPolicyEvaluator.getMatchingPolicyItem(%s, %s, %s, %s): found matching evaluator(%s)", user, userGroups, roles, accessType, ret));
+                    //if out
                     break;
                 }
             }
