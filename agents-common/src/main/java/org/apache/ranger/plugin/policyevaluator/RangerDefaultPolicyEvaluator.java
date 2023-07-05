@@ -643,10 +643,10 @@ public class RangerDefaultPolicyEvaluator extends RangerAbstractPolicyEvaluator 
 		Integer accessResult = null;
 
 		Map<String, PolicyACLSummary.AccessResult> accesses = aclSummary.getUsersAccessInfo().get(user);
-
+		LOG.debug(String.format("User:{0} Group:{1} AccessType:{2} AccessInfo:{3}", user, userGroups, accessType, accesses));;
 		accessResult = lookupAccess(user, accessType, accesses);
 
-		if (accessResult == null) {
+		if (accessResult == null || userGroups.size() > 0) {
 
 			Set<String> groups = new HashSet<>();
 			groups.add(RangerPolicyEngine.GROUP_PUBLIC);
