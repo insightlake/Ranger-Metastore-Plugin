@@ -112,11 +112,11 @@ public class RangerHiveMetastoreAuthorizer extends MetaStorePreEventListener {
                 user = ss.getAuthenticator().getUserName();
             } else {
                 UserGroupInformation userGroupInformation = getCurrentUser();
-                LOG.debug("Got current username  " + userGroupInformation);
+                LOG.debug("Got current username 2023  " + userGroupInformation);
                 user = userGroupInformation.getUserName();
                 List<String> groups = userGroupInformation.getGroups();
                 if(groups != null){
-                    LOG.debug(String.format("Groups:%s", groups));
+                    LOG.debug(String.format("Groups-2023: %s", groups));
                     userGroups = new HashSet<>(groups);
                 } else {
                     LOG.debug(String.format("Group is not exists"));
