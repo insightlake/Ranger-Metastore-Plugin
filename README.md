@@ -1,6 +1,16 @@
 # Ranger-Metastore-Plugin
 Ranger-Metastore-Plugin is intended to integrate Metastore service into Apache Ranger.
 
+
+
+# Version
+
+2023-07-04 
+
+- Support Groups
+
+
+
 # Installation
 
 ## Check $HIVE_HOME env variable
