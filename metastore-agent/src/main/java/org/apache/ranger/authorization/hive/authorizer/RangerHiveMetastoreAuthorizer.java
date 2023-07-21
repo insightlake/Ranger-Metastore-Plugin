@@ -36,8 +36,7 @@ import org.apache.ranger.plugin.util.RangerAccessRequestUtil;
 import org.apache.ranger.plugin.util.RangerRequestedResources;
 
 import java.io.IOException;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 public class RangerHiveMetastoreAuthorizer extends MetaStorePreEventListener {
     private static final Log LOG = LogFactory.getLog(RangerHiveMetastoreAuthorizer.class);
@@ -93,6 +92,9 @@ public class RangerHiveMetastoreAuthorizer extends MetaStorePreEventListener {
         RangerHiveResource resource = null;
         RangerHiveAccessRequest request = null;
         String user;
+        Set<String> userGroups = null;
+//        List<String> roles = null;
+
         try {
             if (ss == null) ss = SessionState.get();
             LOG.debug("Got sessionSate " + ss);
@@ -104,13 +106,22 @@ public class RangerHiveMetastoreAuthorizer extends MetaStorePreEventListener {
                 authbuilder.setUserIpAddress(ss.getUserIpAddress());
                 LOG.debug("Trying to get user from sessionState " + ss.getUserName());
                 user = ss.getUserName();
+
                 if (user == null)
                     LOG.debug("Trying to get user from sessionState.getAuthenticator " + ss.getAuthenticator().getUserName());
                 user = ss.getAuthenticator().getUserName();
             } else {
                 UserGroupInformation userGroupInformation = getCurrentUser();
-                LOG.debug("Got current username  " + userGroupInformation);
+                LOG.debug("Got current username 2023  " + userGroupInformation);
                 user = userGroupInformation.getUserName();
+                List<String> groups = userGroupInformation.getGroups();
+                if(groups != null){
+                    LOG.debug(String.format("Groups-2023: %s", groups));
+                    userGroups = new HashSet<>(groups);
+                } else {
+                    LOG.debug(String.format("Group is not exists"));
+                }
+
             }
             HiveAuthzContext authzContext = authbuilder.build();
             HiveAuthzSessionContext.Builder authssbuilder = new HiveAuthzSessionContext.Builder();
@@ -212,7 +223,7 @@ public class RangerHiveMetastoreAuthorizer extends MetaStorePreEventListener {
             if (resource != null) {
                 LOG.debug("Determined resource " + resource);
                 resource.setServiceDef(hivePlugin.getServiceDef());
-                request = new RangerHiveAccessRequest(resource, user, null,
+                request = new RangerHiveAccessRequest(resource, user, userGroups,
                         hoptName, hact, authzContext, sessionContext);
                 LOG.debug("RangerHiveAccessRequest " + request);
                 RangerAccessRequestUtil.setRequestedResourcesInContext(request.getContext(), requestedResources);
